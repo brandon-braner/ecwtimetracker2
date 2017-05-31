@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Laravel\Socialite\Facades\Socialite;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 class LoginController extends Controller
 {
@@ -56,6 +60,8 @@ class LoginController extends Controller
     public function handleProviderCallback()
     { 
         $user = Socialite::driver('salesforce')->user();
-        echo'<pre>';print_r($user);die();
+        $appUser = User::saveSalesforceUser($user);
+        Auth::login($appUser, TRUE);
+        return Redirect::to($this->redirectTo);
     }
 }
