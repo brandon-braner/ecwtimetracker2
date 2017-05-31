@@ -21,7 +21,17 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = [];
+
+    public static function saveSalesforceUser($salesforceUser)
+    {
+        return static::updateOrCreate(
+            [
+            'name' => $salesforceUser->name,
+            'email' => $salesforceUser->email,
+            'salesforce_user_id' => $salesforceUser->id
+            ],
+            ['refresh_token' => $salesforceUser->refreshToken]
+        );
+    }
 }
