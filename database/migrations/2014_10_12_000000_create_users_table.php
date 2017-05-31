@@ -17,9 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->string('provider');
-            $table->string('provider_id');
+            $table->string('salesforce_user_id');
+            $table->text('refresh_token');
             $table->rememberToken();
             $table->timestamps();
         });
