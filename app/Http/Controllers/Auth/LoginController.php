@@ -54,7 +54,8 @@ class LoginController extends Controller
      * @return Response
      */
     public function handleProviderCallback()
-    {
+    { 
         $user = Socialite::driver('salesforce')->user();
+        echo'<pre>';print_r($user);die();
     }
 }
